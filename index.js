@@ -1,9 +1,12 @@
 const express = require("express");
+const uploadMiddleware = require('./middlewares/multerMid');
 const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./database/connexion");
 const jwt = require("jsonwebtoken");
 const pathimg = './uploads';
+const path = require('path');
+const fs = require('fs');
 
 
 const PORT = 5000;
@@ -12,16 +15,8 @@ const userRouter = require("./routes/user-route");
 const loginRouter = require("./routes/login-route");
 const resetPasswordRouter = require("./routes/resetPassword-route");
 const car = require("./routes/car-route");
-
-
 dotenv.config();
 
-
-
-
-
-
-dotenv.config();
 
 //Connect DB
 
@@ -45,50 +40,26 @@ app.use((req, res, next) => {
 
 
 
-const multer = require('multer');
-const path = require('path');
-
-
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, pathimg)
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.originalname}`
-    )
-  },
-})
-
-function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png/
-  const mimetype = filetypes.test(file.mimetype)
-
-  if (mimetype) {
-    return cb(null, true)
-  } else {
-    cb('Images only!')
-  }
-}
-
-
-const upload = multer({
-  storage,
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb)
-  },
-})
-
-
 // POST File
-app.post('/api/upload', upload.single('image'), (req, res) => {
+app.post('/api/upload', uploadMiddleware, (req, res) => {
 
-  if (req.file.location) {
-    return res.status(200).json({ message: "Image Uploaded With Success" });
-  }
+  // Handle the uploaded files
+  const files = req.files;
 
-  res.send(req.file.location)
+  // Process and store the files as required
+  // For example, save the files to a specific directory using fs module
+  files.forEach((file) => {
+    const filePath = `${pathimg}/${file.filename}`;
+    fs.rename(file.path, filePath, (err) => {
+      if (err) {
+        // Handle error appropriately and send an error response
+        return res.status(500).json({ error: 'Failed to store the file' });
+      }
+    });
+  });
+
+  // Send an appropriate response to the client
+  res.status(200).json({ message: 'File upload successful' });
 
 });
 
