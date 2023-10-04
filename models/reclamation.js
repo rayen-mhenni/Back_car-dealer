@@ -31,6 +31,7 @@ const reclamationSchema = new mongoose.Schema(
     MonthlyIncome: { type: String },
     ResidentialStatus: { type: String },
     MonthlyRent: { type: String },
+    month: { type: String },
 
   },
   {
