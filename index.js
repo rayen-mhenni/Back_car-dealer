@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./database/connexion");
 const jwt = require("jsonwebtoken");
+const pathimg='./uploads';
 
 
 const PORT =5000;
@@ -50,7 +51,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, './uploads')
+    cb(null, pathimg)
   },
   filename(req, file, cb) {
     cb(
@@ -93,7 +94,7 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 });
 
 app.get('/images/:filename', function (request, response) {
-  response.sendFile(request.params.filename, { root: './uploads' })
+  response.sendFile(request.params.filename, { root: pathimg })
 })
 
 app.get('/', (req, res) => {
@@ -103,6 +104,36 @@ app.get('/', (req, res) => {
 
 
 
+// const reactBuild = path.join(__dirname, "build")
+// app.use(express.static(reactBuild))
+// app.get("*", (req, res) => {
+//  res.sendFile(path.join(reactBuild,"index.html"));
+// });
+
+
+//***************************** Prod ************************ */
+
+// const cert = fs.readFileSync('./certificate/cert.crt');
+// const ca = fs.readFileSync('./certificate/ca.crt');
+// const key = fs.readFileSync('./certificate/private.key');
+
+// let options = {
+//    cert: cert, // fs.readFileSync('./ssl/example.crt');
+//    ca: ca, // fs.readFileSync('./ssl/example.ca-bundle');
+//    key: key // fs.readFileSync('./ssl/example.key');
+// };
+
+// https.createServer(options, app)
+// .listen(443, function (req, res) {
+//   console.log("Server started at port 443");
+// });
+
+
+// app.use(function (err, req, res, next) {
+//   console.error(err.message);
+//   if (!err.statusCode) err.statusCode = 500;
+//   res.status(err.statusCode).send(err.message);
+// });
 
 
 
