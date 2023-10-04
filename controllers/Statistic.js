@@ -22,7 +22,7 @@ exports.getStatistic = async (req, res) => {
 exports.addVisit = async (req, res) => {
 
 
-  let OldStatistic = await Statistic.findOneAndUpdate({ month: req.params.month })
+  let OldStatistic = await Statistic.findOne({ month: req.params.month })
 
   if (OldStatistic) {
     const newStatistic = await Statistic.findByIdAndUpdate(OldStatistic._id, {
@@ -48,7 +48,7 @@ exports.addVisit = async (req, res) => {
 
 exports.addRes = async (req, res) => {
 
-  let OldStatistic = await Statistic.findOneAndUpdate({ month: req.params.month })
+  let OldStatistic = await Statistic.findOne({ month: req.params.month })
 
   if (OldStatistic) {
 
