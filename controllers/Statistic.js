@@ -3,7 +3,7 @@ const Statistic = require("../models/Statistic");
 exports.getStatisticBymonth = async (req, res) => {
   let statistic = await Statistic.findOne({ month: req.params.month });
   if (statistic) {
-    res.status(201).send({ Statistic, message: "Success" });
+    res.status(201).send({ statistic, message: "Success" });
   } else {
     res.status(401).send({ statistic: [], message: "Not Data" });
   }
