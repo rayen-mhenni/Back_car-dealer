@@ -15,6 +15,7 @@ const userRouter = require("./routes/user-route");
 const loginRouter = require("./routes/login-route");
 const resetPasswordRouter = require("./routes/resetPassword-route");
 const car = require("./routes/car-route");
+const financing = require("./routes/reclamation-router");
 dotenv.config();
 
 
@@ -81,6 +82,7 @@ app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/users", resetPasswordRouter);
 app.use("/api/car", car)
+app.use("/api/financing", financing)
 
 // POST File
 app.post('/api/upload', uploadMiddleware, (req, res) => {

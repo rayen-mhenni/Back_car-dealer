@@ -7,8 +7,9 @@ router
   .get(controller.find)
   .post(controller.create)
   .put(controller.update)
-  .delete(controller.delete);
 
+
+router.route("/:id").delete(controller.delete);
 router.route("/getbyEmail").post(controller.findAllByEmail)  
 
 router.get("/one", controller.findOne);

@@ -111,7 +111,7 @@ exports.update = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  const reclamation = await Reclamation.findById(req.body._id).remove();
+  const reclamation = await Reclamation.findById(req.params.id).remove();
   res.status(201).send({ message: "success", reclamation: reclamation });
 };
 
