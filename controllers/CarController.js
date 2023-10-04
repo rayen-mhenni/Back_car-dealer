@@ -32,6 +32,7 @@ exports.addCar = async (req, res) => {
     description,
     images,
     options,
+    Vin
   } = req.body;
 
   const newCar = new Car();
@@ -51,6 +52,7 @@ exports.addCar = async (req, res) => {
   newCar.description = description;
   newCar.images = images;
   newCar.options = options;
+  newCar.Vin = Vin;
 
   newCar.save();
 
@@ -73,6 +75,7 @@ exports.editCar = async (req, res) => {
     Price,
     description,
     images,
+    Vin,
     options,
   } = req.body;
 
@@ -93,6 +96,7 @@ exports.editCar = async (req, res) => {
         Price,
         description,
         images,
+        Vin,
         options,
       },
   );
