@@ -32,7 +32,8 @@ exports.create = async (req, res) => {
     Duration,
     MonthlyIncome,
     ResidentialStatus,
-    MonthlyRent } = req.body;
+    MonthlyRent,
+    month } = req.body;
 
   const newReclamation = new Reclamation();
 
@@ -55,6 +56,7 @@ exports.create = async (req, res) => {
   newReclamation.MonthlyIncome = MonthlyIncome;
   newReclamation.ResidentialStatus = ResidentialStatus;
   newReclamation.MonthlyRent = MonthlyRent;
+  newReclamation.month = month;
 
   newReclamation.save();
 
