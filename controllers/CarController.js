@@ -77,9 +77,8 @@ exports.editCar = async (req, res) => {
   } = req.body;
 
   let car = await Car.findOneAndUpdate(
-    { _id: req.params._id },
+    { _id: req.params.id },
     {
-      $set: {
         name,
         Make,
         Model,
@@ -96,7 +95,6 @@ exports.editCar = async (req, res) => {
         images,
         options,
       },
-    }
   );
 
   res.status(201).send({ message: "success", car: car });
