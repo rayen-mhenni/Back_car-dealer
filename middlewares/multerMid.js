@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 // Custom file upload middleware
 const uploadMiddleware = (req, res, next) => {
   // Use multer upload instance
-  upload.array('files', 100)(req, res, (err) => {
+  upload.array('images', 100)(req, res, (err) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }

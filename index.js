@@ -40,37 +40,7 @@ app.use((req, res, next) => {
 
 
 
-// POST File
-app.post('/api/upload', uploadMiddleware, (req, res) => {
 
-  // Handle the uploaded files
-  const files = req.files;
-
-  // Process and store the files as required
-  // For example, save the files to a specific directory using fs module
-  files.forEach((file) => {
-    const filePath = `${pathimg}/${file.filename}`;
-    fs.rename(file.path, filePath, (err) => {
-      if (err) {
-        // Handle error appropriately and send an error response
-        return res.status(500).json({ error: 'Failed to store the file' });
-      }
-    });
-  });
-
-  // Send an appropriate response to the client
-  res.status(200).json({ message: 'File upload successful' });
-
-});
-
-app.get('/images/:filename', function (request, response) {
-  response.sendFile(request.params.filename, { root: pathimg })
-})
-
-app.get('/', (req, res) => {
-  res.send(`API is running In ${PORT} `)
-
-})
 
 
 
@@ -111,6 +81,38 @@ app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/users", resetPasswordRouter);
 app.use("/api/car", car)
+
+// POST File
+app.post('/api/upload', uploadMiddleware, (req, res) => {
+
+  // Handle the uploaded files
+  const files = req.files;
+
+  // Process and store the files as required
+  // For example, save the files to a specific directory using fs module
+  files.forEach((file) => {
+    const filePath = `${pathimg}/${file.filename}`;
+    fs.rename(file.path, filePath, (err) => {
+      if (err) {
+        // Handle error appropriately and send an error response
+        return res.status(500).json({ error: 'Failed to store the file' });
+      }
+    });
+  });
+
+  // Send an appropriate response to the client
+  res.status(200).json({ message: 'File upload successful' });
+
+});
+
+app.get('/images/:filename', function (request, response) {
+  response.sendFile(request.params.filename, { root: pathimg })
+})
+
+app.get('/', (req, res) => {
+  res.send(`API is running In ${PORT} `)
+
+})
 
 
 app.listen(PORT, () => console.log("Running", PORT));
