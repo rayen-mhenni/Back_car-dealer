@@ -103,7 +103,7 @@ exports.editCar = async (req, res) => {
 };
 
 exports.deleteCar = async (req, res) => {
-  constcar = await Car.findById(req.params._id).remove();
+  constcar = await Car.findByIdAndDelete(req.params.id);
   res.status(201).send({ message: "success" });
 };
 

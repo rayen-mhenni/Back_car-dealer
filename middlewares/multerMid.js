@@ -1,7 +1,7 @@
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const pathimg = './uploads';
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
+const pathimg = "./uploads";
 
 // Configure multer storage and file name
 const storage = multer.diskStorage({
@@ -9,8 +9,8 @@ const storage = multer.diskStorage({
     cb(null, pathimg);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+    cb(null, file.originalname);
+  },
 });
 
 // Create multer upload instance
@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 // Custom file upload middleware
 const uploadMiddleware = (req, res, next) => {
   // Use multer upload instance
-  upload.array('images', 100)(req, res, (err) => {
+  upload.array("images", 100)(req, res, (err) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
@@ -30,7 +30,7 @@ const uploadMiddleware = (req, res, next) => {
 
     // Validate file types and sizes
     files.forEach((file) => {
-      const allowedTypes = ['image/jpeg', 'image/png'];
+      const allowedTypes = ["image/jpeg", "image/png"];
       const maxSize = 100 * 1024 * 1024; // 5MB
 
       if (!allowedTypes.includes(file.mimetype)) {
