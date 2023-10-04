@@ -6,10 +6,6 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
     {
-            name: { type: String ,   
-                    required: true,
-                    min: 6,
-                    max: 255,},
 
             email: { type: String,
                      unique: true,
@@ -17,28 +13,11 @@ const userSchema = new mongoose.Schema(
                      min: 6,
                      max: 255,},
 
-            address: { type: String,
-                       required: true,
-                       min: 6,
-                       max: 255,},
             
             password: { type: String,
                         required: true,
                         min: 8,
                         max: 1024,},
-
-
-            phone: { type: String,
-                     required: true, },
-
-            photo: { type: String },
-
-            role: { type: String },
-
-            cars: [{
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Car"
-            }],
     },
     {
             timestamps: { currentTime: () => Date.now() }

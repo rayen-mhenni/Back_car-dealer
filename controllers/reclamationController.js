@@ -15,15 +15,46 @@ exports.findAllByEmail = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const { name, email, address, password, status, userid } = req.body;
+  const { Title,
+    Firstname,
+    Lastname,
+    Dateofbirth,
+    SIN,
+    Email,
+    Phone,
+    CurrentAddressDuration,
+    Street,
+    City,
+    Province,
+    PostalCode,
+    Company,
+    Position,
+    Duration,
+    MonthlyIncome,
+    ResidentialStatus,
+    MonthlyRent } = req.body;
 
   const newReclamation = new Reclamation();
 
-  newReclamation.name = name;
-  newReclamation.email = email;
-  newReclamation.address = address;
-  newReclamation.password = password;
-  newReclamation.status = status;
+
+  newReclamation.Title = Title;
+  newReclamation.Firstname = Firstname;
+  newReclamation.Lastname = Lastname;
+  newReclamation.Dateofbirth = Dateofbirth;
+  newReclamation.SIN = SIN;
+  newReclamation.Email = Email;
+  newReclamation.Phone = Phone;
+  newReclamation.CurrentAddressDuration = CurrentAddressDuration;
+  newReclamation.Street = Street;
+  newReclamation.City = City;
+  newReclamation.Province = Province;
+  newReclamation.PostalCode = PostalCode;
+  newReclamation.Company = Company;
+  newReclamation.Position = Position;
+  newReclamation.Duration = Duration;
+  newReclamation.MonthlyIncome = MonthlyIncome;
+  newReclamation.ResidentialStatus = ResidentialStatus;
+  newReclamation.MonthlyRent = MonthlyRent;
 
   newReclamation.save();
 
@@ -31,17 +62,48 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { _id, name, email, address, password, status } = req.body;
+  const { _id,
+    Title,
+    Firstname,
+    Lastname,
+    Dateofbirth,
+    SIN,
+    Email,
+    Phone,
+    CurrentAddressDuration,
+    Street,
+    City,
+    Province,
+    PostalCode,
+    Company,
+    Position,
+    Duration,
+    MonthlyIncome,
+    ResidentialStatus,
+    MonthlyRent } = req.body;
 
   let reclamation = await Reclamation.findOneAndUpdate(
     { _id: _id },
     {
       $set: {
-        name: name,
-        email: email,
-        address: address,
-        password: password,
-        status: status,
+        Title,
+        Firstname,
+        Lastname,
+        Dateofbirth,
+        SIN,
+        Email,
+        Phone,
+        CurrentAddressDuration,
+        Street,
+        City,
+        Province,
+        PostalCode,
+        Company,
+        Position,
+        Duration,
+        MonthlyIncome,
+        ResidentialStatus,
+        MonthlyRent
       },
     }
   );

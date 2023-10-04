@@ -20,12 +20,7 @@ exports.login = async (req, res) => {
 
       res.json({
         _id: doesExist._id,
-        name: doesExist.name,
         email: doesExist.email,
-        address: doesExist.address,
-        phone: doesExist.phone,
-        photo: doesExist.photo,
-        role: doesExist.role,
         token: jwt.sign(
           { _id: doesExist._id, email: doesExist.email },
           "Test",

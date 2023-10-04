@@ -9,13 +9,8 @@ exports.create = async (req, res) => {
     return;
   }
   const user = new User({
-    name: req.body.name,
     email: req.body.email,
-    address: req.body.address,
     password: req.body.password,
-    phone: req.body.phone,
-    photo: req.body.photo,
-    role: req.body.role,
   });
 
 
@@ -149,7 +144,7 @@ exports.updatepassword = async (req, res) => {
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: "Cannot update user with ${id}/Maybe user not found!",
+          message: "Cannot update user with ${id} user not found!",
         });
       } else {
         res.send(data);
@@ -163,13 +158,12 @@ exports.updatepassword = async (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.params.id;
-  user
-    .findByIdAndDelete(id)
+  user.findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
         res
           .status(404)
-          .send({ message: "Cannot delete with id ${id}.Maybe id is wrong " });
+          .send({ message: `Cannot delete with id ${id}.Maybe id is wrong`  });
       } else {
         res.send({
           messagge: "User was deleted successfully",
