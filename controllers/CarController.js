@@ -106,3 +106,4 @@ exports.deleteCar = async (req, res) => {
   constcar = await Car.findById(req.params._id).remove();
   res.status(201).send({ message: "success" });
 };
+
