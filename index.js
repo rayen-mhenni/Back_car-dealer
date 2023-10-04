@@ -3,10 +3,10 @@ const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./database/connexion");
 const jwt = require("jsonwebtoken");
-const pathimg='./uploads';
+const pathimg = './uploads';
 
 
-const PORT =5000;
+const PORT = 5000;
 //Import Routes
 const userRouter = require("./routes/user-route");
 const loginRouter = require("./routes/login-route");
@@ -63,10 +63,9 @@ const storage = multer.diskStorage({
 
 function checkFileType(file, cb) {
   const filetypes = /jpg|jpeg|png/
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
   const mimetype = filetypes.test(file.mimetype)
 
-  if (extname && mimetype) {
+  if (mimetype) {
     return cb(null, true)
   } else {
     cb('Images only!')
