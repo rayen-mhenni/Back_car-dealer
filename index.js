@@ -1,13 +1,13 @@
 const express = require("express");
-const uploadMiddleware = require('./middlewares/multerMid');
+const uploadMiddleware = require("./middlewares/multerMid");
 const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./database/connexion");
 const jwt = require("jsonwebtoken");
-const pathimg = './uploads';
-const path = require('path');
-const fs = require('fs');
-
+const pathimg = "./uploads";
+const path = require("path");
+const fs = require("fs");
+const sharp = require("sharp");
 
 const PORT = 5000;
 //Import Routes
@@ -19,7 +19,6 @@ const financing = require("./routes/reclamation-router");
 const Statistic = require("./routes/statistic-route");
 dotenv.config();
 
-
 //Connect DB
 
 connectDB();
@@ -28,7 +27,6 @@ connectDB();
 
 app.use(express.json());
 //Route Middlewares
-
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -40,18 +38,11 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
-
-
-
 // const reactBuild = path.join(__dirname, "build")
 // app.use(express.static(reactBuild))
 // app.get("*", (req, res) => {
 //  res.sendFile(path.join(reactBuild,"index.html"));
 // });
-
 
 //***************************** Prod ************************ */
 
@@ -70,25 +61,21 @@ app.use((req, res, next) => {
 //   console.log("Server started at port 443");
 // });
 
-
 // app.use(function (err, req, res, next) {
 //   console.error(err.message);
 //   if (!err.statusCode) err.statusCode = 500;
 //   res.status(err.statusCode).send(err.message);
 // });
 
-
-
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/users", resetPasswordRouter);
-app.use("/api/car", car)
-app.use("/api/financing", financing)
-app.use("/api/statistic", Statistic)
+app.use("/api/car", car);
+app.use("/api/financing", financing);
+app.use("/api/statistic", Statistic);
 
 // POST File
-app.post('/api/upload', uploadMiddleware, (req, res) => {
-
+app.post("/api/upload", uploadMiddleware, async (req, res) => {
   // Handle the uploaded files
   const files = req.files;
 
@@ -99,29 +86,35 @@ app.post('/api/upload', uploadMiddleware, (req, res) => {
     fs.rename(file.path, filePath, (err) => {
       if (err) {
         // Handle error appropriately and send an error response
-        return res.status(500).json({ error: 'Failed to store the file' });
+        return res.status(500).json({ error: "Failed to store the file" });
       }
     });
   });
 
-  // Send an appropriate response to the client
-  res.status(200).json({ message: 'File upload successful' });
+  const arrayPromise = [];
+  files.forEach((file) => {
+    const filePathN = `${pathimg}/${file.filename}`;
+    const filePath = fs.readFileSync(`${pathimg}/${file.filename}`);
+    fs.unlinkSync(`${pathimg}/${file.filename}`);
+    arrayPromise.push(
+      sharp(filePath)
+        .resize(420, 750)
+        .toFile(filePathN)
+    );
+  });
 
+  await Promise.all(arrayPromise);
+
+  // Send an appropriate response to the client
+  res.status(200).json({ message: "File upload successful" });
 });
 
-app.get('/images/:filename', function (request, response) {
-  response.sendFile(request.params.filename, { root: pathimg })
-})
+app.get("/images/:filename", function (request, response) {
+  response.sendFile(request.params.filename, { root: pathimg });
+});
 
-app.get('/', (req, res) => {
-  res.send(`API is running In ${PORT} `)
-
-})
-
+app.get("/", (req, res) => {
+  res.send(`API is running In ${PORT} `);
+});
 
 app.listen(PORT, () => console.log("Running", PORT));
-
-
-
-
-
