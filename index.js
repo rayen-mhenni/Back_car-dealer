@@ -98,7 +98,10 @@ app.post("/api/upload", uploadMiddleware, async (req, res) => {
     fs.unlinkSync(`${pathimg}/${file.filename}`);
     arrayPromise.push(
       sharp(filePath)
-        .resize(420, 750)
+        .resize(750, 420, {
+          // kernel: sharp.kernel.cubic,
+          fit: 'contain',
+        })
         .toFile(filePathN)
     );
   });
