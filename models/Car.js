@@ -14,6 +14,8 @@ const CarSchema = new mongoose.Schema(
     INTERIORCOLOR: { type: String },
     EXTERIORCOLOR: { type: String },
     Price: { type: String },
+    CARFAX: { type: String },
+    Energy: { type: String },
     description: { type: String },
     images: { type: Array },
     options: { type: Array },

@@ -29,6 +29,8 @@ exports.addCar = async (req, res) => {
     INTERIORCOLOR,
     EXTERIORCOLOR,
     Price,
+    Energy,
+    CARFAX,
     description,
     images,
     options,
@@ -49,6 +51,8 @@ exports.addCar = async (req, res) => {
   newCar.INTERIORCOLOR = INTERIORCOLOR;
   newCar.EXTERIORCOLOR = EXTERIORCOLOR;
   newCar.Price = Price;
+  newCar.Energy = Energy;
+  newCar.CARFAX = CARFAX;
   newCar.description = description;
   newCar.images = images;
   newCar.options = options;
@@ -73,6 +77,8 @@ exports.editCar = async (req, res) => {
     INTERIORCOLOR,
     EXTERIORCOLOR,
     Price,
+    CARFAX,
+    Energy,
     description,
     images,
     Vin,
@@ -94,6 +100,8 @@ exports.editCar = async (req, res) => {
         INTERIORCOLOR,
         EXTERIORCOLOR,
         Price,
+        CARFAX,
+        Energy,
         description,
         images,
         Vin,
