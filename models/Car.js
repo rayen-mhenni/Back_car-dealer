@@ -20,6 +20,7 @@ const CarSchema = new mongoose.Schema(
     images: { type: Array },
     options: { type: Array },
     Vin: { type: String },
+    top: { type: Boolean, default: false },
   },
 
   {

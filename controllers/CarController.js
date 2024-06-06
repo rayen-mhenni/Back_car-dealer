@@ -34,7 +34,7 @@ exports.addCar = async (req, res) => {
     description,
     images,
     options,
-    Vin
+    Vin,
   } = req.body;
 
   const newCar = new Car();
@@ -88,25 +88,38 @@ exports.editCar = async (req, res) => {
   let car = await Car.findOneAndUpdate(
     { _id: req.params.id },
     {
-        name,
-        Make,
-        Model,
-        Year,
-        Mileage,
-        Engine,
-        Cylinder,
-        Transmission,
-        Bodytype,
-        INTERIORCOLOR,
-        EXTERIORCOLOR,
-        Price,
-        CARFAX,
-        Energy,
-        description,
-        images,
-        Vin,
-        options,
-      },
+      name,
+      Make,
+      Model,
+      Year,
+      Mileage,
+      Engine,
+      Cylinder,
+      Transmission,
+      Bodytype,
+      INTERIORCOLOR,
+      EXTERIORCOLOR,
+      Price,
+      CARFAX,
+      Energy,
+      description,
+      images,
+      Vin,
+      options,
+    }
+  );
+
+  res.status(201).send({ message: "success", car: car });
+};
+
+exports.TopCar = async (req, res) => {
+  let carold = await Car.findOne({ _id: req.params.id });
+
+  let car = await Car.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      top: !carold.top,
+    }
   );
 
   res.status(201).send({ message: "success", car: car });
@@ -116,4 +129,3 @@ exports.deleteCar = async (req, res) => {
   constcar = await Car.findByIdAndDelete(req.params.id);
   res.status(201).send({ message: "success" });
 };
-

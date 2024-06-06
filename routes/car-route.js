@@ -9,6 +9,8 @@ router.route("/:id").get(CarController.getCarById)
 
 router.route("/edit/:id").put(CarController.editCar)
 
+router.route("/top/:id").put(CarController.TopCar)
+
 router.route("/delete/:id").delete(CarController.deleteCar)
 
 
