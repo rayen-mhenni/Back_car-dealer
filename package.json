@@ -39,7 +39,7 @@
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
